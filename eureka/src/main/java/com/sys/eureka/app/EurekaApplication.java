@@ -1,11 +1,13 @@
-package com.sys.eureka;
+package com.sys.eureka.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableEurekaServer
+@ComponentScan(basePackages = {"com.sys.*"})
 public class EurekaApplication {
 
 	public static void main(String[] args) {
