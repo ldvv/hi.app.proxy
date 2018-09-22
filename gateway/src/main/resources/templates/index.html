@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            var login = function(){
+                var name = $("#name").val();
+                var password = $("#password").val();
+                var datas = {};
+                datas["name"]=name;
+                datas["password"]=password;
+                $.ajax({
+                    type: "POST",
+                    url: "/login",
+                    data: datas,
+                    success: function(data){
+                        $("#result").val(data)
+                    }
+                });
+            }
+
+        </script>
+    </head>
+    <body>
+
+        <div ng-app="Travel Code">
+            <p>用户名 : <input type="text" id="name"></p>
+            <p>密码 : <input type="text" id="password"></p>
+            <input type="button" onclick="login()" value="登录"/>
+            <p id="result"></p>
+        </div>
+
+    </body>
+
+</html>
