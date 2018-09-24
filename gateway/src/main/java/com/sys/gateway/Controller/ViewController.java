@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping(value = "/")
 public class ViewController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class ViewController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody String login(@RequestBody User user){
         System.out.print(user.getName());
-        return iUserService.queryUsers().toString();
+        return iUserService.queryUsers().get(0).getName();
     }
 
     @RequestMapping("/logout")

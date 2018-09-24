@@ -15,3 +15,5 @@ CREATE TABLE `USER` (
 	workNumber VARCHAR (100),
 	department VARCHAR (100)
 );
+
+insert into user values('admin', 'admin', 'huawei@123', '18129934135', '1210754789@qq.com', 'man', '', '', '', 'LD0001', 'TT');

@@ -1,36 +1,63 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-        <script>
-            var login = function(){
-                var name = $("#name").val();
-                var password = $("#password").val();
-                var datas = {};
-                datas["name"]=name;
-                datas["password"]=password;
-                $.ajax({
-                    type: "POST",
-                    url: "/login",
-                    data: datas,
-                    success: function(data){
-                        $("#result").val(data)
-                    }
-                });
-            }
+<!-- saved from url=(0067)http://www.17sucai.com/preview/668095/2017-07-19/perfect/index.html -->
+<html lang="en" class="no-js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-        </script>
-    </head>
-    <body>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="./css/index/normalize.css">
+    <link rel="stylesheet" type="text/css" href="./css/index/demo.css">
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="./css/index/component.css">
 
-        <div ng-app="Travel Code">
-            <p>用户名 : <input type="text" id="name"></p>
-            <p>密码 : <input type="text" id="password"></p>
-            <input type="button" onclick="login()" value="登录"/>
-            <p id="result"></p>
+    <script src="./jquery-3.3.1/jquery-3.3.1.js"></script>
+</head>
+<body waid71fa0d88-5390-4b5b-a2f4-e45fa93d85e2="SA password protect entry checker">
+<div class="container demo-1">
+    <div class="content">
+        <div id="large-header" class="large-header" style="height: 758px;">
+            <canvas id="demo-canvas" width="1536" height="758"></canvas>
+            <div class="logo_box">
+                <h3>欢迎你</h3>
+                <form action="http://localhost:8889/login" name="loginForm" method="post" enctype="application/json;charset=UTF-8">
+                    <div class="input_outer">
+                        <span class="u_user"></span>
+                        <input id="name" name="name" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
+                    </div>
+                    <div class="input_outer">
+                        <span class="us_uer"></span>
+                        <input id="password" name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请输入密码">
+                    </div>
+                    <div class="mb2">
+                        <a class="act-but submit" style="color: #FFFFFF" onclick="login()">登录</a>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
+</div><!-- /container -->
+<script src="./js/index/TweenLite.min.js"></script>
+<script src="./js/index/EasePack.min.js"></script>
+<script src="./js/index/rAF.js"></script>
+<script src="./js/index/demo-1.js"></script>
+<script>
 
-    </body>
+    var login = function(){
+        var url = "http://localhost:8889/login";
+        var name = $("#name").val();
+        var password = $("#password").val();
+        var data = {"name": name, "password":password};
+        $.ajax({
+            url: url,
+            type: "POST",
+            datType: "JSON",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function(result){
+                return result;
+            }
+        });
+    }
+</script>
 
-</html>
+</body></html>
