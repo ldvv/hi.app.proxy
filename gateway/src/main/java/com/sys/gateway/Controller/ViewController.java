@@ -1,4 +1,4 @@
-package com.sys.gateway.Controller;
+package com.sys.gateway.controller;
 
 import com.sys.gateway.service.IUserService;
 import com.sys.gateway.vo.User;
@@ -18,19 +18,18 @@ public class ViewController {
 
     @RequestMapping("")
     public String index(){
-
         return "index";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public @ResponseBody String login(@RequestBody User user){
+    public String login(@RequestBody User user){
         System.out.print(user.getName());
-        return iUserService.queryUsers().get(0).getName();
+        return "overview/overview";
     }
 
-    @RequestMapping("/logout")
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(){
-        return "logout";
+        return "overview/overview";
     }
 
 }

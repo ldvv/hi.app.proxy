@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
-//@Configuration
+@Configuration
 public class DataSourceConfig {
 
     @Bean(name="dataSource")
