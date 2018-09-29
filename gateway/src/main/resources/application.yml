@@ -7,6 +7,8 @@ spring:
     driverClass: com.mysql.jdbc.Driver
     user: root
     password: ldvv
+  thymeleaf:
+    prefix: classpath:/static/
 
 redis:
   host: 192.168.220.30

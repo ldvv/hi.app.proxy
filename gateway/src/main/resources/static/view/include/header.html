@@ -9,7 +9,7 @@
     <!--公共js文件-->
     <script src="./js/common.js"></script>
 </head>
-<body>
+<body ng-app="header" ng-controller="headerCtl">
 <!-- header -->
 <div class="header">
     <div class="container">
@@ -60,5 +60,14 @@
     </div>
 </div>
 <!-- header -->
+
+<script>
+    var header = angular.module('header', []);
+
+    header.controller('headerCtl', function($scope){
+
+    });
+
+</script>
 </body>
 </html>

@@ -24,12 +24,12 @@ public class ViewController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody User user){
         System.out.print(user.getName());
-        return "overview/overview";
+        return "view/overview/overview";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(){
-        return "overview/overview";
+        return "view/overview/overview";
     }
 
 }
