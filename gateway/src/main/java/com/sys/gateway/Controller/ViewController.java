@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping(value = "/")
 public class ViewController {
@@ -22,13 +25,15 @@ public class ViewController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestBody User user){
-        System.out.print(user.getName());
-        return "view/overview/overview";
+    public @ResponseBody Map<String, String> login(@RequestBody User user){
+        Map<String, String> result = new HashMap<>();
+        result.put("code", "200");
+        result.put("message", "success");
+        return result;
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(){
+    @RequestMapping(value = "/overview", method = RequestMethod.GET)
+    public String overview(){
         return "view/overview/overview";
     }
 

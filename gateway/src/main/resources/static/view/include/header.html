@@ -27,13 +27,49 @@
         a{
             text-decoration:none;
         }
+
+        .marquee {
+            width: 450px;
+            margin: 0 auto;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee:hover {
+            animation-play-state: paused
+        }
+
+        /* Make it move */
+        @keyframes marquee {
+            0%   { text-indent: 27.5em }
+            100% { text-indent: -105em }
+        }
+
+        /* Make it pretty */
+        .microsoft {
+            padding-left: 1.5em;
+            position: relative;
+            color:lightgray;
+            font: 16px 'Segoe UI', Tahoma, Helvetica, Sans-Serif;
+        }
+
+        /* ::before was :before before ::before was ::before - kthx */
+        .microsoft:before, .microsoft::before {
+            z-index: 2;
+            content: '';
+            position: absolute;
+            top: -1em; left: -1em;
+            width: .5em; height: .5em;
+        }
     </style>
 </head>
 <body>
 <!-- header -->
 <div style="width: 100%">
     <div id="headerContent" style="animation-duration: 1s;">
-        <img src="img/logo.png" style="float: left; width:102px">
+        <img src="/img/logo.png" style="float: left; width:102px">
         <div>
             <ul id = "menu" style="float: left; width: auto; height:auto; margin-top: auto; margin-bottom: 0;" >
                 <li style="margin-left: 45px"><a href="" style="color: white">首页</a></li>
@@ -46,7 +82,7 @@
         </div>
 
         <div id = "message" style="float: left; margin: auto" >
-
+            <p class="microsoft marquee">{{notice}}</p>
         </div>
         <div id = "auxiliaryButton" style="float: right; width: auto">
             <h4 style="float: right; margin-right: 20px; color: lightgrey"><span class="glyphicon glyphicon-off"></span></h4>

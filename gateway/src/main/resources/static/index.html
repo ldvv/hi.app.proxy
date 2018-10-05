@@ -9,16 +9,12 @@
     <link rel="stylesheet" type="text/css" href="./css/index/demo.css">
     <!--必要样式-->
     <link rel="stylesheet" type="text/css" href="./css/index/component.css">
-
-    <!--公共CSS文件-->
-    <link rel="stylesheet" type="text/css" href="./css/common.css">
     <!--公共js文件-->
     <script src="./js/common.js"></script>
 
 </head>
-<body waid71fa0d88-5390-4b5b-a2f4-e45fa93d85e2="SA password protect entry checker">
+<body>
 <div ng-app="indexMode" ng-controller="indexCtrl">
-<include file="'./common/head.html'"></include>
 <div class="container demo-1">
     <div class="content">
         <div id="large-header" class="large-header" style="height: 758px;">
@@ -58,10 +54,15 @@
             var url = this.url;
             var name = $("#name").val();
             var password = $("#password").val();
-            var data = {"name": name, "password":password};
+            var datas = {"name": name, "password":password};
 
-            $http.post(url, JSON.stringify(data)).then(function(result){
-                return result;
+            $http.post(url, JSON.stringify(datas)).then(function(data){
+                if(data.data.code=='200'){
+                    window.location.href = "/view/overview/overview.html";
+                }else{
+                    alert('登录失败');
+                }
+
             });
         }
     }]);
