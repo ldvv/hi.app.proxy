@@ -26,10 +26,7 @@ public class ViewController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public @ResponseBody Map<String, String> login(@RequestBody User user){
-        Map<String, String> result = new HashMap<>();
-        result.put("code", "200");
-        result.put("message", "success");
-        return result;
+        return iUserService.login(user);
     }
 
     @RequestMapping(value = "/overview", method = RequestMethod.GET)

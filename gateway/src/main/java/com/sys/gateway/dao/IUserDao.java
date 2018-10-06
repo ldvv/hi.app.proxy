@@ -8,5 +8,4 @@ import java.util.List;
 @Repository
 public interface IUserDao extends SqlMapper<User> {
 
-    List<User> queryUsers();
 }

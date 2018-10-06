@@ -3,8 +3,9 @@ package com.sys.gateway.service;
 import com.sys.gateway.vo.User;
 
 import java.util.List;
+import java.util.Map;
 
-public interface IUserService {
+public interface IUserService{
 
-    List<User> queryUsers();
+    Map<String, String> login(User user);
 }
