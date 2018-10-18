@@ -3,7 +3,7 @@ package com.sys.gateway.vo;
 public class User {
 
     private String id;
-    private String name;
+    private String username;
     private String password;
     private String phone;
     private String email;
@@ -13,6 +13,13 @@ public class User {
     private String idCard;
     private String workNumber;
     private String department;
+    private String role;
+    private String image;
+    private String tenant;
+    private String createdata;
+    private String lastupdatedate;
+
+
 
     public String getId() {
         return id;
@@ -20,14 +27,6 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassword() {
@@ -100,5 +99,53 @@ public class User {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(String tenant) {
+        this.tenant = tenant;
+    }
+
+    public String getCreatedata() {
+        return createdata;
+    }
+
+    public void setCreatedata(String createdata) {
+        this.createdata = createdata;
+    }
+
+    public String getLastupdatedate() {
+        return lastupdatedate;
+    }
+
+    public void setLastupdatedate(String lastupdatedate) {
+        this.lastupdatedate = lastupdatedate;
     }
 }

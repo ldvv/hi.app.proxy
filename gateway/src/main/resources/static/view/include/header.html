@@ -3,6 +3,7 @@
 <head>
     <!--公共CSS文件-->
     <link rel="stylesheet" type="text/css" href="../../css/common.css">
+
     <style type="text/css">
         #header{
             width: 100%;
@@ -63,21 +64,42 @@
             top: -1em; left: -1em;
             width: .5em; height: .5em;
         }
+
+        #headerImg{
+            width: 35px;
+            height: 35px;
+            transition: all 0.2s linear;
+            opacity: 0.8;
+            border: 0.5px silver solid;
+        }
+
+        #nowPage{
+            width: 100%;
+            height: 35px;
+            line-height: 35px;
+            border-bottom: 1px solid #F3F3F3;
+            background-color: white;
+            padding-left: 10px;
+        }
     </style>
 </head>
 <body>
 <!-- header -->
-<div style="width: 100%">
+<div style="width: 100%" ng-app="headerMode" ng-controller="headerCtrl">
     <div id="headerContent" style="animation-duration: 1s;">
-        <img src="/img/logo.png" style="float: left; width:102px">
+        <a href="/overview"><img src="/img/logo.png" style="float: left; width:50px"></a>
         <div>
-            <ul id = "menu" style="float: left; width: auto; height:auto; margin-top: auto; margin-bottom: 0;" >
-                <li style="margin-left: 45px"><a href="" style="color: white">首页</a></li>
-                <li style="margin-left: 45px"><a href="" style="color: white">模板</a></li>
-                <li style="margin-left: 45px"><a href="" style="color: white">套餐</a></li>
-                <li style="margin-left: 45px"><a href="" style="color: white">案例</a></li>
-                <li style="margin-left: 45px"><a href="" style="color: white">文档</a></li>
-                <li style="margin-left: 45px"><a href="" style="color: white">推广</a></li>
+            <!--<ul id = "menu" style="float: left; width: auto; height:auto; margin-top: auto; margin-bottom: 0;" >
+                <li style="margin-left: 45px"><a href="" style="color: white">人事管理</a></li>
+                <li style="margin-left: 45px"><a href="" style="color: white">资源管理</a></li>
+                <li style="margin-left: 45px"><a href="" style="color: white">消息管理</a></li>
+                <li style="margin-left: 45px"><a href="" style="color: white">设置</a></li>
+            </ul>-->
+            <ul class="layui-nav" lay-filter="">
+                <li class="layui-nav-item"><a href="">人事管理</a></li>
+                <li class="layui-nav-item"><a href="">资源管理</a></li>
+                <li class="layui-nav-item"><a href="">消息管理</a></li>
+                <li class="layui-nav-item"><a href="">设置</a></li>
             </ul>
         </div>
 
@@ -85,11 +107,34 @@
             <p class="microsoft marquee">{{notice}}</p>
         </div>
         <div id = "auxiliaryButton" style="float: right; width: auto">
-            <h4 style="float: right; margin-right: 20px; color: lightgrey"><span class="glyphicon glyphicon-off"></span></h4>
-            <h4 style="float: right; margin-right: 20px; color: lightgrey"><span class="glyphicon glyphicon-user"></span></h4>
-            <h4 style="float: right; margin-right: 20px; color: lightgrey"><span class="glyphicon glyphicon-search"></span></h4>
+           <!-- <input style="border-radius: 16px;"  type="image" id="headerImg"
+                   src="/img/default_head.jpg" onmouseover="userOperate()" onmouseout="nofocus()">-->
+            <ul class="layui-nav">
+                <li class="layui-nav-item" lay-unselect="">
+                    <a href="javascript:;">语言</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">中文</a></dd>
+                        <dd><a href="javascript:;">English</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">消息<span class="layui-badge">9</span></a>
+                </li>
+                <li class="layui-nav-item" lay-unselect="">
+                    <a href="javascript:;"><img src="/img/default_head.jpg" class="layui-nav-img">我</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">用户中心</a></dd>
+                        <dd><a href="javascript:;">我的日志</a></dd>
+                        <dd><a href="javascript:;">我的分享</a></dd>
+                        <dd><a href="javascript:;">退出</a></dd>
+                    </dl>
+                </li>
+            </ul>
         </div>
     </div>
+    <!--<div id="nowPage">
+        <span style="color: grey;">当前位置 > </span><a href="javascript:;" style="color: silver">{{now}}</a>
+    </div>-->
 </div>
 <!-- header -->
 

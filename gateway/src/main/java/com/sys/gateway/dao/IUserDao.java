@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface IUserDao extends SqlMapper<User> {
 
+    User findByUsername(String username);
 }

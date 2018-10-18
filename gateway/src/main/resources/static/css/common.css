@@ -1,5 +1,6 @@
-@import url("../bootstrap-3.3.7/css/bootstrap.css");
-@import url("../bootstrap-3.3.7/css/bootstrap.min.css");
+@import url("/bootstrap-3.3.7/css/bootstrap.css");
+@import url("/bootstrap-3.3.7/css/bootstrap.min.css");
+@import url("/layui/css/layui.css");
 
 body{
     margin: 0px;

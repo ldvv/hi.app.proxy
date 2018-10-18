@@ -3,7 +3,7 @@
 <mapper namespace="com.sys.gateway.dao.IUserDao" >
     <resultMap id="BaseResultMap" type="com.sys.gateway.vo.User" >
         <id column="id" property="id" jdbcType="VARCHAR" />
-        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
         <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
         <result column="phone" property="phone" jdbcType="VARCHAR" />
         <result column="email" property="email" jdbcType="VARCHAR" />
@@ -15,7 +15,7 @@
         <result column="department" property="department" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="Base_Column_List" >
-        id, NAME, PASSWORD, phone, email, sex, address, nativePlace, idCard, workNumber,
+        id, username, PASSWORD, phone, email, sex, address, nativePlace, idCard, workNumber,
         department
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -29,20 +29,26 @@
         <include refid="Base_Column_List" />
         from `user`
         where 1=1
-        <if test="name!=null">
-            name = #{name, jdbcType=VARCHAR}
+        <if test="username!=null">
+            username = #{username, jdbcType=VARCHAR}
         </if>
+    </select>
+    <select id="findByUsername" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from `user`
+        where username = #{username, jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
         delete from user
         where id = #{id,jdbcType=VARCHAR}
     </delete>
     <insert id="insert" parameterType="com.sys.gateway.vo.User" >
-        insert into user (id, NAME, PASSWORD,
+        insert into user (id, username, PASSWORD,
         phone, email, sex,
         address, nativePlace, idCard,
         workNumber, department)
-        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
         #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
         #{address,jdbcType=VARCHAR}, #{nativeplace,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR},
         #{worknumber,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR})
@@ -53,8 +59,8 @@
             <if test="id != null" >
                 id,
             </if>
-            <if test="name != null" >
-                NAME,
+            <if test="username != null" >
+                username,
             </if>
             <if test="password != null" >
                 PASSWORD,
@@ -89,7 +95,7 @@
                 #{id,jdbcType=VARCHAR},
             </if>
             <if test="name != null" >
-                #{name,jdbcType=VARCHAR},
+                #{username,jdbcType=VARCHAR},
             </if>
             <if test="password != null" >
                 #{password,jdbcType=VARCHAR},
@@ -123,8 +129,8 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.sys.gateway.vo.User" >
         update user
         <set >
-            <if test="name != null" >
-                NAME = #{name,jdbcType=VARCHAR},
+            <if test="username != null" >
+                NAME = #{username,jdbcType=VARCHAR},
             </if>
             <if test="password != null" >
                 PASSWORD = #{password,jdbcType=VARCHAR},
@@ -158,7 +164,7 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.sys.gateway.vo.User" >
         update user
-        set NAME = #{name,jdbcType=VARCHAR},
+        set username = #{username,jdbcType=VARCHAR},
         PASSWORD = #{password,jdbcType=VARCHAR},
         phone = #{phone,jdbcType=VARCHAR},
         email = #{email,jdbcType=VARCHAR},
