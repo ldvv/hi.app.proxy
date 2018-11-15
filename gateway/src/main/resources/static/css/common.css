@@ -5,3 +5,11 @@
 body{
     margin: 0px;
 }
+
+.layui-elem-quote{
+    border-left: 15px solid #3F3F3F !important;
+}
+
+#bodyContent{
+    margin-top:120px;
+}

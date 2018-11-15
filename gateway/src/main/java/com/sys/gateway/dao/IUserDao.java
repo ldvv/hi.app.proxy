@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IUserDao extends SqlMapper<User> {
+public interface IUserDao extends SqlMapper<User>{
 
     User findByUsername(String username);
 }

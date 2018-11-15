@@ -1,20 +1,22 @@
 var headerMode = angular.module('headerMode', []);
 
 headerMode.controller("headerCtrl", ['$rootScope', function($rootScope){
-    $rootScope.notice='aaaaaaasdasssssssssssssss';
-
     $rootScope.now='人事管理';
 
+    $rootScope.notice='aaaaaaasdasssssssssssssss';
+
+    $rootScope.me='Admin';
 
 }]);
 
-layui.use('element', function(){
-    var $ = layui.jquery,
-        element = layui.element;
+$(function(){
+    layui.use('element', function(){
+        var element = layui.element;
 
-    //监听导航点击
-    element.on('nav(demo)', function(elem){
-        //console.log(elem)
-        layer.msg(elem.text());
+        //监听导航点击
+        element.on('nav(demo)', function(elem){
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
     });
 });

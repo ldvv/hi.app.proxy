@@ -21,6 +21,7 @@ public class SecurityUser extends User implements UserDetails {
             this.setRole(user.getRole());
             this.setImage(user.getImage());
             this.setTenant(user.getTenant());
+            this.setWorknumber(user.getWorknumber());
         }
     }
 

@@ -25,4 +25,9 @@ public class UserServiceImpl implements IUserService {
         result.put("message", "success");
         return result;
     }
+
+    @Override
+    public User selectByPrimaryKey(String id) {
+        return iUserDao.selectByPrimaryKey(id);
+    }
 }

@@ -1,25 +1,51 @@
 package com.sys.gateway.vo;
 
 public class User {
-
     private String id;
+
     private String username;
+
     private String password;
+
     private String phone;
+
     private String email;
+
     private String sex;
-    private String address;
-    private String nativePlace;
-    private String idCard;
-    private String workNumber;
-    private String department;
-    private String role;
-    private String image;
-    private String tenant;
-    private String createdata;
+
+    private String proviceaddress;
+
+    private String cityaddress;
+
+    private String countyaddress;
+
+    private String provice;
+
+    private String city;
+
+    private String county;
+
+    private String idcard;
+
+    private String worknumber;
+
+    private Long image;
+
+    private String createdate;
+
     private String lastupdatedate;
 
+    private String tenant;
 
+    private String department;
+
+    private String autobiography;
+
+    private String nickname;
+
+    private String enable;
+
+    private String role;
 
     public String getId() {
         return id;
@@ -27,6 +53,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -61,68 +95,92 @@ public class User {
         this.sex = sex;
     }
 
-    public String getAddress() {
-        return address;
+    public String getProviceaddress() {
+        return proviceaddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setProviceaddress(String proviceaddress) {
+        this.proviceaddress = proviceaddress;
     }
 
-    public String getNativePlace() {
-        return nativePlace;
+    public String getCityaddress() {
+        return cityaddress;
     }
 
-    public void setNativePlace(String nativePlace) {
-        this.nativePlace = nativePlace;
+    public void setCityaddress(String cityaddress) {
+        this.cityaddress = cityaddress;
     }
 
-    public String getIdCard() {
-        return idCard;
+    public String getCountyaddress() {
+        return countyaddress;
     }
 
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
+    public void setCountyaddress(String countyaddress) {
+        this.countyaddress = countyaddress;
     }
 
-    public String getWorkNumber() {
-        return workNumber;
+    public String getProvice() {
+        return provice;
     }
 
-    public void setWorkNumber(String workNumber) {
-        this.workNumber = workNumber;
+    public void setProvice(String provice) {
+        this.provice = provice;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getCity() {
+        return city;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getRole() {
-        return role;
+    public String getCounty() {
+        return county;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setCounty(String county) {
+        this.county = county;
     }
 
-    public String getImage() {
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
+    }
+
+    public String getWorknumber() {
+        return worknumber;
+    }
+
+    public void setWorknumber(String worknumber) {
+        this.worknumber = worknumber;
+    }
+
+    public Long getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Long image) {
         this.image = image;
     }
 
-    public String getUsername() {
-        return username;
+    public String getCreatedate() {
+        return createdate;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCreatedate(String createdate) {
+        this.createdate = createdate;
+    }
+
+    public String getLastupdatedate() {
+        return lastupdatedate;
+    }
+
+    public void setLastupdatedate(String lastupdatedate) {
+        this.lastupdatedate = lastupdatedate;
     }
 
     public String getTenant() {
@@ -133,19 +191,43 @@ public class User {
         this.tenant = tenant;
     }
 
-    public String getCreatedata() {
-        return createdata;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setCreatedata(String createdata) {
-        this.createdata = createdata;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
-    public String getLastupdatedate() {
-        return lastupdatedate;
+    public String getAutobiography() {
+        return autobiography;
     }
 
-    public void setLastupdatedate(String lastupdatedate) {
-        this.lastupdatedate = lastupdatedate;
+    public void setAutobiography(String autobiography) {
+        this.autobiography = autobiography;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getEnable() {
+        return enable;
+    }
+
+    public void setEnable(String enable) {
+        this.enable = enable;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

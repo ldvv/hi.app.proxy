@@ -8,6 +8,9 @@
         #header{
             width: 100%;
             background-color: #333333;
+            position: fixed;
+            z-index: 99999; /*最上层*/
+            top:0;
         }
 
         #headerContent{
@@ -85,16 +88,10 @@
 </head>
 <body>
 <!-- header -->
-<div style="width: 100%" ng-app="headerMode" ng-controller="headerCtrl">
+<div style="width: 100%;" ng-app="headerMode" ng-controller="headerCtrl">
     <div id="headerContent" style="animation-duration: 1s;">
         <a href="/overview"><img src="/img/logo.png" style="float: left; width:50px"></a>
         <div>
-            <!--<ul id = "menu" style="float: left; width: auto; height:auto; margin-top: auto; margin-bottom: 0;" >
-                <li style="margin-left: 45px"><a href="" style="color: white">人事管理</a></li>
-                <li style="margin-left: 45px"><a href="" style="color: white">资源管理</a></li>
-                <li style="margin-left: 45px"><a href="" style="color: white">消息管理</a></li>
-                <li style="margin-left: 45px"><a href="" style="color: white">设置</a></li>
-            </ul>-->
             <ul class="layui-nav" lay-filter="">
                 <li class="layui-nav-item"><a href="">人事管理</a></li>
                 <li class="layui-nav-item"><a href="">资源管理</a></li>
@@ -107,8 +104,6 @@
             <p class="microsoft marquee">{{notice}}</p>
         </div>
         <div id = "auxiliaryButton" style="float: right; width: auto">
-           <!-- <input style="border-radius: 16px;"  type="image" id="headerImg"
-                   src="/img/default_head.jpg" onmouseover="userOperate()" onmouseout="nofocus()">-->
             <ul class="layui-nav">
                 <li class="layui-nav-item" lay-unselect="">
                     <a href="javascript:;">语言</a>
@@ -121,20 +116,20 @@
                     <a href="">消息<span class="layui-badge">9</span></a>
                 </li>
                 <li class="layui-nav-item" lay-unselect="">
-                    <a href="javascript:;"><img src="/img/default_head.jpg" class="layui-nav-img">我</a>
+                    <a href="javascript:;"><img src="/img/default_head.jpg" class="layui-nav-img">{{me}}</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">用户中心</a></dd>
+                        <dd><a href="/view/usercenter/usercenter.html">个人中心</a></dd>
                         <dd><a href="javascript:;">我的日志</a></dd>
                         <dd><a href="javascript:;">我的分享</a></dd>
-                        <dd><a href="javascript:;">退出</a></dd>
+                        <dd><a href="/logout">退出</a></dd>
                     </dl>
                 </li>
             </ul>
         </div>
     </div>
-    <!--<div id="nowPage">
+    <div id="nowPage" ng-if="!overviewNow">
         <span style="color: grey;">当前位置 > </span><a href="javascript:;" style="color: silver">{{now}}</a>
-    </div>-->
+    </div>
 </div>
 <!-- header -->
 

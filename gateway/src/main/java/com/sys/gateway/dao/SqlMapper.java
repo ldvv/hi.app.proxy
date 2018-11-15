@@ -39,41 +39,41 @@ public interface SqlMapper<T> {
      *
      * @Auth Create By LD   2018-09-25
      * */
-    void deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(String id);
 
     /**
      * 插入数据（所有字段）
      *
-     * @param vo 插入的实体
+     * @param recode 插入的实体
      *
      * @Auth Create By LD   2018-09-25
      * */
-    void insert(T vo);
+    int insert(T recode);
 
     /**
      * 自定义插入
      *
-     * @param vo 插入的数据实体
+     * @param recode 插入的数据实体
      *
      * @Auth Create By LD   2018-09-25
      * */
-    void insertSelective(T vo);
+    int insertSelective(T recode);
 
     /**
      * 通过主键更新其他所有数据
      *
-     * @param vo 更新的数据实体
+     * @param recode 更新的数据实体
      *
      * @Auth Create By LD   2018-09-25
      * */
-    void updateByPrimaryKey(T vo);
+    int updateByPrimaryKey(T recode);
 
     /**
      * 通过主键更新自定义数据，只更新不为空的数据
      *
-     * @param vo 更新数据实体
+     * @param recode 更新数据实体
      *
      * @Auth Create By LD   2018-09-25
      * */
-    void updateByPrimaryKeySelective(T vo);
+    int updateByPrimaryKeySelective(T recode);
 }

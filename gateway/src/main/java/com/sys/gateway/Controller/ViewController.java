@@ -1,8 +1,10 @@
 package com.sys.gateway.controller;
 
+import com.sys.gateway.security.SecurityUser;
 import com.sys.gateway.service.IUserService;
 import com.sys.gateway.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,18 @@ public class ViewController {
     @RequestMapping(value = "/overview", method = RequestMethod.GET)
     public String overview(){
         return "view/overview/overview";
+    }
+
+    @RequestMapping(value = "/me", method = RequestMethod.GET)
+    public @ResponseBody
+    User userCenter(){
+        SecurityUser securityUser = (SecurityUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //查询用户信息
+        User me = iUserService.selectByPrimaryKey(securityUser.getId());
+
+        me.setPassword("*******");
+        return me;
     }
 
 }

@@ -1,5 +1,5 @@
 angular.module('overview', ['headerMode']).controller('overviewCtl', ['$scope', function($scope){
-
+    $scope.overviewNow = true;
 
 }]);
 

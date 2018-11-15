@@ -18,4 +18,3 @@ document.write('<script src="/angular-1.7.4/angular.min.js"></script>');
 
 //header
 document.write('<script src="/js/header.js"></script>');
-

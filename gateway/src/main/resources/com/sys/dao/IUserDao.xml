@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sys.gateway.dao.IUserDao" >
+
     <resultMap id="BaseResultMap" type="com.sys.gateway.vo.User" >
         <id column="id" property="id" jdbcType="VARCHAR" />
         <result column="username" property="username" jdbcType="VARCHAR" />
@@ -8,53 +9,66 @@
         <result column="phone" property="phone" jdbcType="VARCHAR" />
         <result column="email" property="email" jdbcType="VARCHAR" />
         <result column="sex" property="sex" jdbcType="VARCHAR" />
-        <result column="address" property="address" jdbcType="VARCHAR" />
-        <result column="nativePlace" property="nativePlace" jdbcType="VARCHAR" />
-        <result column="idCard" property="idCard" jdbcType="VARCHAR" />
-        <result column="workNumber" property="workNumber" jdbcType="VARCHAR" />
+        <result column="proviceAddress" property="proviceaddress" jdbcType="VARCHAR" />
+        <result column="cityAddress" property="cityaddress" jdbcType="VARCHAR" />
+        <result column="countyAddress" property="countyaddress" jdbcType="VARCHAR" />
+        <result column="provice" property="provice" jdbcType="VARCHAR" />
+        <result column="city" property="city" jdbcType="VARCHAR" />
+        <result column="county" property="county" jdbcType="VARCHAR" />
+        <result column="idCard" property="idcard" jdbcType="VARCHAR" />
+        <result column="workNumber" property="worknumber" jdbcType="VARCHAR" />
+        <result column="image" property="image" jdbcType="BIGINT" />
+        <result column="createdate" property="createdate" jdbcType="VARCHAR" />
+        <result column="lastupdatedate" property="lastupdatedate" jdbcType="VARCHAR" />
+        <result column="tenant" property="tenant" jdbcType="VARCHAR" />
         <result column="department" property="department" jdbcType="VARCHAR" />
+        <result column="autobiography" property="autobiography" jdbcType="VARCHAR" />
+        <result column="nickName" property="nickname" jdbcType="VARCHAR" />
+        <result column="enable" property="enable" jdbcType="VARCHAR" />
+        <result column="role" property="role" jdbcType="VARCHAR" />
     </resultMap>
+
     <sql id="Base_Column_List" >
-        id, username, PASSWORD, phone, email, sex, address, nativePlace, idCard, workNumber,
-        department
+        id, username, PASSWORD, phone, email, sex, proviceAddress, cityAddress, countyAddress,
+        provice, city, county, idCard, workNumber, image, createdate, lastupdatedate, tenant,
+        department, autobiography, nickName, enable, role
     </sql>
+
+
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select
         <include refid="Base_Column_List" />
-        from user
+        from iam_user_t
         where id = #{id,jdbcType=VARCHAR}
     </select>
-    <select id="queryByCondition" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from `user`
-        where 1=1
-        <if test="username!=null">
-            username = #{username, jdbcType=VARCHAR}
-        </if>
-    </select>
-    <select id="findByUsername" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from `user`
-        where username = #{username, jdbcType=VARCHAR}
-    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-        delete from user
+        delete from iam_user_t
         where id = #{id,jdbcType=VARCHAR}
     </delete>
+
     <insert id="insert" parameterType="com.sys.gateway.vo.User" >
-        insert into user (id, username, PASSWORD,
+        insert into iam_user_t (id, username, PASSWORD,
         phone, email, sex,
-        address, nativePlace, idCard,
-        workNumber, department)
+        proviceAddress, cityAddress, countyAddress,
+        provice, city, county,
+        idCard, workNumber, image,
+        createdate, lastupdatedate, tenant,
+        department, autobiography, nickName,
+        enable, role)
         values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
         #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
-        #{address,jdbcType=VARCHAR}, #{nativeplace,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR},
-        #{worknumber,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR})
+        #{proviceaddress,jdbcType=VARCHAR}, #{cityaddress,jdbcType=VARCHAR}, #{countyaddress,jdbcType=VARCHAR},
+        #{provice,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR},
+        #{idcard,jdbcType=VARCHAR}, #{worknumber,jdbcType=VARCHAR}, #{image,jdbcType=BIGINT},
+        #{createdate,jdbcType=VARCHAR}, #{lastupdatedate,jdbcType=VARCHAR}, #{tenant,jdbcType=VARCHAR},
+        #{department,jdbcType=VARCHAR}, #{autobiography,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
+        #{enable,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR})
     </insert>
+
     <insert id="insertSelective" parameterType="com.sys.gateway.vo.User" >
-        insert into user
+        insert into iam_user_t
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 id,
@@ -74,11 +88,23 @@
             <if test="sex != null" >
                 sex,
             </if>
-            <if test="address != null" >
-                address,
+            <if test="proviceaddress != null" >
+                proviceAddress,
             </if>
-            <if test="nativeplace != null" >
-                nativePlace,
+            <if test="cityaddress != null" >
+                cityAddress,
+            </if>
+            <if test="countyaddress != null" >
+                countyAddress,
+            </if>
+            <if test="provice != null" >
+                provice,
+            </if>
+            <if test="city != null" >
+                city,
+            </if>
+            <if test="county != null" >
+                county,
             </if>
             <if test="idcard != null" >
                 idCard,
@@ -86,15 +112,39 @@
             <if test="worknumber != null" >
                 workNumber,
             </if>
+            <if test="image != null" >
+                image,
+            </if>
+            <if test="createdate != null" >
+                createdate,
+            </if>
+            <if test="lastupdatedate != null" >
+                lastupdatedate,
+            </if>
+            <if test="tenant != null" >
+                tenant,
+            </if>
             <if test="department != null" >
                 department,
+            </if>
+            <if test="autobiography != null" >
+                autobiography,
+            </if>
+            <if test="nickname != null" >
+                nickName,
+            </if>
+            <if test="enable != null" >
+                enable,
+            </if>
+            <if test="role != null" >
+                role,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
                 #{id,jdbcType=VARCHAR},
             </if>
-            <if test="name != null" >
+            <if test="username != null" >
                 #{username,jdbcType=VARCHAR},
             </if>
             <if test="password != null" >
@@ -109,11 +159,23 @@
             <if test="sex != null" >
                 #{sex,jdbcType=VARCHAR},
             </if>
-            <if test="address != null" >
-                #{address,jdbcType=VARCHAR},
+            <if test="proviceaddress != null" >
+                #{proviceaddress,jdbcType=VARCHAR},
             </if>
-            <if test="nativeplace != null" >
-                #{nativeplace,jdbcType=VARCHAR},
+            <if test="cityaddress != null" >
+                #{cityaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="countyaddress != null" >
+                #{countyaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="provice != null" >
+                #{provice,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="county != null" >
+                #{county,jdbcType=VARCHAR},
             </if>
             <if test="idcard != null" >
                 #{idcard,jdbcType=VARCHAR},
@@ -121,16 +183,41 @@
             <if test="worknumber != null" >
                 #{worknumber,jdbcType=VARCHAR},
             </if>
+            <if test="image != null" >
+                #{image,jdbcType=BIGINT},
+            </if>
+            <if test="createdate != null" >
+                #{createdate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastupdatedate != null" >
+                #{lastupdatedate,jdbcType=VARCHAR},
+            </if>
+            <if test="tenant != null" >
+                #{tenant,jdbcType=VARCHAR},
+            </if>
             <if test="department != null" >
                 #{department,jdbcType=VARCHAR},
             </if>
+            <if test="autobiography != null" >
+                #{autobiography,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null" >
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null" >
+                #{enable,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null" >
+                #{role,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.sys.gateway.vo.User" >
-        update user
+        update iam_user_t
         <set >
             <if test="username != null" >
-                NAME = #{username,jdbcType=VARCHAR},
+                username = #{username,jdbcType=VARCHAR},
             </if>
             <if test="password != null" >
                 PASSWORD = #{password,jdbcType=VARCHAR},
@@ -144,11 +231,23 @@
             <if test="sex != null" >
                 sex = #{sex,jdbcType=VARCHAR},
             </if>
-            <if test="address != null" >
-                address = #{address,jdbcType=VARCHAR},
+            <if test="proviceaddress != null" >
+                proviceAddress = #{proviceaddress,jdbcType=VARCHAR},
             </if>
-            <if test="nativeplace != null" >
-                nativePlace = #{nativeplace,jdbcType=VARCHAR},
+            <if test="cityaddress != null" >
+                cityAddress = #{cityaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="countyaddress != null" >
+                countyAddress = #{countyaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="provice != null" >
+                provice = #{provice,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="county != null" >
+                county = #{county,jdbcType=VARCHAR},
             </if>
             <if test="idcard != null" >
                 idCard = #{idcard,jdbcType=VARCHAR},
@@ -156,24 +255,69 @@
             <if test="worknumber != null" >
                 workNumber = #{worknumber,jdbcType=VARCHAR},
             </if>
+            <if test="image != null" >
+                image = #{image,jdbcType=BIGINT},
+            </if>
+            <if test="createdate != null" >
+                createdate = #{createdate,jdbcType=VARCHAR},
+            </if>
+            <if test="lastupdatedate != null" >
+                lastupdatedate = #{lastupdatedate,jdbcType=VARCHAR},
+            </if>
+            <if test="tenant != null" >
+                tenant = #{tenant,jdbcType=VARCHAR},
+            </if>
             <if test="department != null" >
                 department = #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="autobiography != null" >
+                autobiography = #{autobiography,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null" >
+                nickName = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null" >
+                enable = #{enable,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null" >
+                role = #{role,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
+
     <update id="updateByPrimaryKey" parameterType="com.sys.gateway.vo.User" >
-        update user
-        set username = #{username,jdbcType=VARCHAR},
-        PASSWORD = #{password,jdbcType=VARCHAR},
-        phone = #{phone,jdbcType=VARCHAR},
-        email = #{email,jdbcType=VARCHAR},
-        sex = #{sex,jdbcType=VARCHAR},
-        address = #{address,jdbcType=VARCHAR},
-        nativePlace = #{nativeplace,jdbcType=VARCHAR},
-        idCard = #{idcard,jdbcType=VARCHAR},
-        workNumber = #{worknumber,jdbcType=VARCHAR},
-        department = #{department,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
+    update iam_user_t
+    set username = #{username,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      proviceAddress = #{proviceaddress,jdbcType=VARCHAR},
+      cityAddress = #{cityaddress,jdbcType=VARCHAR},
+      countyAddress = #{countyaddress,jdbcType=VARCHAR},
+      provice = #{provice,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      county = #{county,jdbcType=VARCHAR},
+      idCard = #{idcard,jdbcType=VARCHAR},
+      workNumber = #{worknumber,jdbcType=VARCHAR},
+      image = #{image,jdbcType=BIGINT},
+      createdate = #{createdate,jdbcType=VARCHAR},
+      lastupdatedate = #{lastupdatedate,jdbcType=VARCHAR},
+      tenant = #{tenant,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      autobiography = #{autobiography,jdbcType=VARCHAR},
+      nickName = #{nickname,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <select id="findByUsername" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from `iam_user_t`
+        where username = #{username, jdbcType=VARCHAR}
+    </select>
+
 </mapper>
