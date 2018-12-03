@@ -3,7 +3,7 @@ angular.module('overview', ['headerMode']).controller('overviewCtl', ['$scope', 
 
 }]);
 
-$(document).ready(function(e) {
+$().ready(function(e) {
     var unslider04 = $('#b04').unslider({
             dots: true
         }),

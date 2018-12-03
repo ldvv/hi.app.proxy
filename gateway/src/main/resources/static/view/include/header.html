@@ -118,9 +118,9 @@
                 <li class="layui-nav-item" lay-unselect="">
                     <a href="javascript:;"><img src="/img/default_head.jpg" class="layui-nav-img">{{me}}</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="/view/usercenter/usercenter.html">个人中心</a></dd>
-                        <dd><a href="javascript:;">我的日志</a></dd>
-                        <dd><a href="javascript:;">我的分享</a></dd>
+                        <dd><a href="/usercenter" rel="external nofollow">个人中心</a></dd>
+                        <dd><a href="/logs?owner=me">我的日志</a></dd>
+                        <dd><a href="/shared?owner=me">我的分享</a></dd>
                         <dd><a href="/logout">退出</a></dd>
                     </dl>
                 </li>
@@ -130,6 +130,7 @@
     <div id="nowPage" ng-if="!overviewNow">
         <span style="color: grey;">当前位置 > </span><a href="javascript:;" style="color: silver">{{now}}</a>
     </div>
+
 </div>
 <!-- header -->
 

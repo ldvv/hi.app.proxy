@@ -22,3 +22,9 @@
 
 7、EstablishSearch聚合实例：
 	{"size": 1,"aggs": {"platform": {"terms": {"field": "platformId"},"aggs": {"assignUser": {"terms": {"field": "mainId"},"aggs": {"assignUser": {"terms": {"field": "assignUserId"},"aggs": {"sumTime": {"sum": {"field": "replyDelayTime"}}}}}}}}},"query": {"bool": {"must": [{"match": {"sendType": 0}},{"range": {"gmtCreate": {"gte": 1539273600000,"lt": 1539360000000}}}]}}}
+	
+8、idea格式化代码：Ctrl+Alt+L
+
+9、//注释的正则表达式--- (/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/|[ \t]*//.*) ---
+  /***/注释的正则表达式--- (/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+/) ---
+

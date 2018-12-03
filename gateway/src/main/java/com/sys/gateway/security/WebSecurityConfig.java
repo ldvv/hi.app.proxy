@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,6 +19,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.data.redis.RedisOperationsSessionRepository;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +35,9 @@ import java.io.IOException;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception { //配置策略
@@ -49,6 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .successHandler(loginSuccessHandler())
                 .permitAll()
+                //.successForwardUrl("/overview").
                 .defaultSuccessUrl("/overview").
                 and()
                 .logout()
@@ -60,6 +68,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .maximumSessions(10)
                 .expiredUrl("/login");
+
+        http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/login?error=2")
+                .sessionRegistry(sessionRegistry());
     }
 
     @Autowired
@@ -115,5 +126,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 return new SecurityUser(user);
             }
         };
+    }
+
+    @Bean
+    SpringSessionBackedSessionRegistry sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry(getSessionRepository());
+    }
+
+    public FindByIndexNameSessionRepository getSessionRepository() {
+        return new RedisOperationsSessionRepository(redisTemplate);
     }
 }
