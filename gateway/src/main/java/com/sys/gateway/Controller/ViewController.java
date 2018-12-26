@@ -3,20 +3,24 @@ package com.sys.gateway.controller;
 import com.sys.gateway.security.SecurityUser;
 import com.sys.gateway.service.IUserService;
 import com.sys.gateway.vo.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/")
 public class ViewController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ViewController.class);
 
     @Autowired
     IUserService iUserService;
@@ -37,14 +41,9 @@ public class ViewController {
         return "index";
     }
 
-    @RequestMapping(value = "/overview", method = RequestMethod.GET)
-    public String overview(){
-        return "view/overview/overview";
-    }
-
-    @RequestMapping(value = "/usercenter", method = RequestMethod.GET)
-    public String usercenter(){
-        return "view/usercenter/usercenter";
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(Model model, @RequestParam(value = "error", required = false) String error) {
+        return "index";
     }
 
     @RequestMapping(value = "/me", method = RequestMethod.GET)
@@ -60,5 +59,4 @@ public class ViewController {
         }
         return me;
     }
-
 }

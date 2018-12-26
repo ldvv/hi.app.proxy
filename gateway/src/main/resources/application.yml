@@ -19,6 +19,13 @@ spring:
     store-type: redis
 
 redis:
-  host: 192.168.12.221
+  host: 192.168.12.52
   port: 6379
   password: ldvv
+
+#Elasticsearch
+elasticsearch:
+  name: tomtopccs
+  ip: 192.168.0.232
+  port: 9300
+  pool: 5
