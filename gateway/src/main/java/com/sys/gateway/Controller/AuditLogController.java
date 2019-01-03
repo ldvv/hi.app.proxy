@@ -5,6 +5,7 @@ import com.sys.gateway.dao.ICustomerDao;
 import com.sys.gateway.utils.HttpUtils;
 import com.sys.gateway.vo.CustomerDB;
 import com.sys.gateway.vo.CustomersVO;
+import com.sys.gateway.vo.ErrorInfo;
 import com.sys.gateway.vo.Label;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.action.search.SearchResponse;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -34,6 +36,8 @@ import java.util.*;
 public class AuditLogController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuditLogController.class);
+
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     private ICustomerDao iCustomerDao;
@@ -48,7 +52,7 @@ public class AuditLogController {
 
     @RequestMapping(value = "/dataList", method = RequestMethod.GET)
     public @ResponseBody
-    String dataList(@RequestParam String id, @RequestParam String cookie){
+    String dataList(@RequestParam String id, @RequestParam String cookie) throws Exception{
         logger.info("D9999: Id is "+ id + ",        Cookie is "+ cookie);
         if(StringUtils.isNotBlank(id) && StringUtils.isNotBlank(cookie)){
             return exportCustomers(id, cookie);
@@ -56,7 +60,15 @@ public class AuditLogController {
         return "Id or cookie is null!!";
     }
 
-    private String exportCustomers(String id, String cookie) {
+    @RequestMapping(value = "/addError", method = RequestMethod.GET)
+    public @ResponseBody
+    String addError() throws Exception{
+        ErrorInfo errorInfo = new ErrorInfo(200+"", "Success", sdf.format(new Date()));
+        iCustomerDao.insertError(errorInfo);
+        return "SUCCESS";
+    }
+
+    private String exportCustomers(String id, String cookie) throws Exception {
         Map<String, String> requestHeader = new HashMap<>();
         requestHeader.put("Cookie", cookie);
         Map<String, String> allLabels = queryLabels(requestHeader);
@@ -91,58 +103,40 @@ public class AuditLogController {
                 iCustomerDao.updateToDB(cusDbs);
             }catch (Exception e){
                 logger.error("D9999:Execute error at *********************************************" + id, e);
-                try{
-                    FileOutputStream logFile = new FileOutputStream("F:\\mytools\\log.log",false);//true表示追加打开
-                    logFile.write((e.toString() + "#####################" +id + "######################").getBytes() );
-                    logFile.flush();
-                    logFile.close();
-                }catch (Exception e1){
-                    e.printStackTrace();
-                }finally {
-                    continue;
-                }
-//                return "Execute error at " + id;
+                ErrorInfo errorInfo = new ErrorInfo(id, e+"", sdf.format(new Date()));
+                iCustomerDao.insertError(errorInfo);
+                continue;
             }
         }
     }
 
-    public List<Map<String,Object>> dataListComplete(@RequestParam int id) {
+    public List<Map<String,Object>> dataListComplete(int id) throws Exception {
         Map<String,Object> query = new HashMap<>();
         query.put("customerType", 10);
 
         Map<String,Object> idRange = new HashMap<>();
-        idRange.put("$lt", id);
+        idRange.put("$gt", id);
         query.put("id", idRange);
 
         Map<String,Object> sort = new LinkedHashMap<>(); //排序有先后顺序，所以用LinkHashMap
-        sort.put("id", -1);
+        sort.put("id", 1);
         System.out.println(query.toString());
-        List<Map<String, Object>> datas = new ArrayList<>();
-        try{
-            datas = searchMessageByPage(query, sort, 100, 1);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+        List<Map<String, Object>> datas = searchMessageByPage(query, sort, 100, 1);
 
         return datas;
     }
 
-    private Map<String,String> queryLabels(Map<String,String> header) {
+    private Map<String,String> queryLabels(Map<String,String> header) throws Exception {
         Map<String,String> result = new HashMap<>();
         String resultJson = "";
-        try {
-            resultJson = HttpUtils.doGet("http://192.168.0.233:84/label/listData?pageSize=100000", header);
-            Map<String, Object> map = JSON.parseObject(resultJson, Map.class);
-            List<Label> labels = JSON.parseArray(JSON.toJSONString(map.get("datas")), Label.class);
-            if(labels == null || labels.size() == 0){
-                return result;
-            }
-            for (Label label: labels) {
-                result.put(label.getId()+"", label.getName());
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+        resultJson = HttpUtils.doGet("http://192.168.0.233:84/label/listData?pageSize=100000", header);
+        Map<String, Object> map = JSON.parseObject(resultJson, Map.class);
+        List<Label> labels = JSON.parseArray(JSON.toJSONString(map.get("datas")), Label.class);
+        if(labels == null || labels.size() == 0){
+            return result;
+        }
+        for (Label label: labels) {
+            result.put(label.getId()+"", label.getName());
         }
 
         return result;
@@ -179,16 +173,13 @@ public class AuditLogController {
 
     public static SortBuilder getSort(Map<String, Object> requestArgs) {
         String sortField = "id";
-        String sortDirection = "-1";
-        HashMap sort = (HashMap) requestArgs.get("sort");
-        if (null != sort) {
-            Iterator localIterator = sort.keySet().iterator();
-            if (localIterator.hasNext()) {
-                String key = (String) localIterator.next();
-                sortDirection = sort.get(key).toString();
-                sortField = key;
-            }
+        String sortDirection = "1";
 
+        Iterator localIterator = requestArgs.keySet().iterator();
+        if (localIterator.hasNext()) {
+            String key = (String) localIterator.next();
+            sortDirection = requestArgs.get(key).toString();
+            sortField = key;
         }
         if ("-1".equals(sortDirection))
             return SortBuilders.fieldSort(sortField).order(SortOrder.DESC);

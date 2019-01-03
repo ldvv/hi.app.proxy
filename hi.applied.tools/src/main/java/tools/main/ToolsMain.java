@@ -5,14 +5,8 @@ import org.slf4j.LoggerFactory;
 import tools.service.ToolsService;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ToolsMain {
 
@@ -28,31 +22,10 @@ public class ToolsMain {
     private static ToolsService toolsService = new ToolsService();
 
     //查询文件中所有的中文
-    public static void main(String[] args) {
-        //traverseFolder(JSP_PATH);
-        //replaceKey(JSP_PATH);
-        /*String str ="45abc,+de==fg";
-        String str1 = str;
-
-        Map<String, String> replace = new HashMap<String, String>();
-        Pattern patternNotes = Pattern.compile("([a-z]|[A-Z]){2,}");
-        Matcher matcherNotes = patternNotes.matcher(str1);
-        while(matcherNotes.find()){
-            String group = matcherNotes.group();
-            str1 = str1.replaceFirst(group, "");
-            replace.put(group, flip(group));
-            matcherNotes = patternNotes.matcher(str1);
-        }
-
-        for (Map.Entry<String, String> entry : replace.entrySet()) {
-            str = str.replace(entry.getKey(), entry.getValue());
-        }
-
-        System.out.println(str);*/
-        double d = 114.145;
-        d = (double) Math.round(d * 100) / 100;
-        System.out.println(d);
-
+    public static void main(String[] args) throws Exception{
+        logger.debug("aaaaaaaaaaa");
+        logger.info("aaaaaaaaaaa");
+        logger.error("aaaaaaaaaaa");
     }
 
     private static String flip(String group) {

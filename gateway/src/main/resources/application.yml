@@ -19,7 +19,7 @@ spring:
     store-type: redis
 
 redis:
-  host: 192.168.12.52
+  host: 192.168.12.53
   port: 6379
   password: ldvv
 

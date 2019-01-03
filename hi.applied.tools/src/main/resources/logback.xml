@@ -1,15 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+1、主节点<configuration>，有如下属性：
+    (1)scan: true（配置文件修改后重新加载）<-> false（配置文件修改后不加载），默认true
+    (2)scanPeriod: 多长时间检查一次配置文件是否修改，默认单位毫秒，可自定义时间单位（例如seconds），默认一分钟
+    (3)debug: true（打印logback内部日志）<-> false（不打印logback内部日志），默认false
+2、子节点
+    (1)<contextName> 设置上下文名称，用于辨别是哪个应用程序的日志。默认为default
+    (2)<property>    变量。有name(变量名)和value(变量值)两个属性，其他地方通过 ${变量名} 引用
+    (3)<timestamp>   获取当前时间戳并设置时间展示格式，遵循SimpleDateFormat时间格式；属性：key-节点名，datePattern-时间格式（yyyy-MM-dd HH:mm:ss）
+    (4)<appender>    日志打印配置(输出源)，下面讲
+    (5)<loger>       用于指定类、包等的日志级别，<appender>配置等；属性：name-节点名，level：日志级别TRACE<DEBUG<INFO<WARN<ERROR<ALL<OFF
+    (6)<root>        一个特殊的<loger>，它是所有loger的跟节点, 属性： level：日志级别TRACE<DEBUG<INFO<WARN<ERROR<ALL<OFF。
+-->
 <configuration>
+    <!--
+    1、<appender>输出源节点属性：
+        (1)name: 定义节点名称
+        (2)class: 限定名，用于指定日志打印方式，参数选择如下：
+            1) ch.qos.logback.core.ConsoleAppender   打印日志到控制台。 子节点如下：
+                <encoder>：对记录事件进行格式化。负责两件事，一是把日志信息转换成字节数组，二是把字节数组写入到输出流。
 
+            2) ch.qos.logback.core.FileAppender      打印日志到文件，子节点如下：
+            　　 <file>：被写入的文件名，可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建，没有默认值。
+            　　 <append>：如果是 true，日志被追加到文件结尾，如果是 false，清空现存文件，默认是true。
+            　　 <encoder>：对记录事件进行格式化。负责两件事，一是把日志信息转换成字节数组，二是把字节数组写入到输出流。
+            　　 <prudent>：如果是 true，日志会被安全的写入文件，即使其他的FileAppender也在向此文件做写入操作，效率低，默认是 false。
+
+            3) ch.qos.logback.core.rolling.RollingFileAppender   滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件。子节点如下：
+                <file>：被写入的文件名，可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建，没有默认值。
+                <append>：如果是 true，日志被追加到文件结尾，如果是 false，清空现存文件，默认是true。
+                <rollingPolicy>:当发生滚动时，决定RollingFileAppender的行为，涉及文件移动和重命名。属性class定义具体的滚动策略类：
+　　　　　　              a) class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动。有以下子节点：
+                                <fileNamePattern>:通过%d定义滚动时间，参考如下示例
+                                <maxHistory>: 控制保留的归档文件的最大数量，超出数量就删除旧文件
+                        b) class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy"： 查看当前活动文件的大小，如果超过指定大小会告知RollingFileAppender 触发当前活动文件滚动。
+                                <maxFileSize>:指定滚动文件大小
+                                <prudent>：当为true时，不支持FixedWindowRollingPolicy。支持TimeBasedRollingPolicy，但是有两个限制，1不支持也不允许文件压缩，2不能设置file属性，必须留空
+                <encoder>：对记录事件进行格式化。负责两件事，一是把日志信息转换成字节数组，二是把字节数组写入到输出流。
+                <triggeringPolicy >: 告知 RollingFileAppender 合适激活滚动。
+            　　　　　　   class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy" 根据固定窗口算法重命名文件的滚动策略。有以下子节点：
+            　　　　　　　　<minIndex>:窗口索引最小值
+            　　　　　　　　<maxIndex>:窗口索引最大值，当用户指定的窗口过大时，会自动将窗口设置为12。
+            　　　　　　　　<fileNamePattern>:必须包含“%i”例如，假设最小值和最大值分别为1和2，命名模式为 mylog%i.log,会产生归档文件mylog1.log和mylog2.log。还可以指定文件压缩选项，例如，mylog%i.log.gz 或者 没有log%i.log.zip
+    -->
+
+    <!--
+
+    <encoder>：对记录事件进行格式化。负责两件事，一是把日志信息转换成字节数组，二是把字节数组写入到输出流。PatternLayoutEncoder 是唯一有用的且默认的encoder ，有一个<pattern>节点，用来设置日志的输入格式。使用“%”加“转换符”方式，如果要输出“%”，则必须用“\”对“\%”进行转义。
+
+    -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>FileAppender.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>TimeBasedRollingFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="SIZEROLLINGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>FixedWindowRolling.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>tests.%i.log.zip</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>3</maxIndex>
+        </rollingPolicy>
+
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--所有的<loger>以<root>为跟节点。 如果不配置<appender-ref>则查看addtivity属性，如果为true，则使用root输出源-->
+    <loger name="com.sys.ld" level="debug">
+        <appender-ref ref="STDOUT" />
+    </loger>
+
     <root level="debug">
         <appender-ref ref="STDOUT" />
     </root>
+
 </configuration>
