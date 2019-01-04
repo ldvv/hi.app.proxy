@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(loginSuccessHandler())
                 .permitAll()
                 //.successForwardUrl("/overview").
-                .defaultSuccessUrl("/overview").
+                .defaultSuccessUrl("/").
                 and()
                 .logout()
                 .permitAll()
@@ -129,7 +129,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    SpringSessionBackedSessionRegistry sessionRegistry() {
+    public SpringSessionBackedSessionRegistry sessionRegistry() {
         return new SpringSessionBackedSessionRegistry(getSessionRepository());
     }
 
