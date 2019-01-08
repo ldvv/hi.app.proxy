@@ -372,4 +372,22 @@ public class DateUtils {
         Long resultMillisecond = end.getTime() - begin.getTime();
         return Math.round((resultMillisecond*1.0/dateType) * 100)/100.0;
     }
+
+    /**
+     * 获取输入时间当月天数
+     *
+     * @param date 输入时间
+     *
+     * @auth LD
+     * @date 2019-01-08
+     *
+     * */
+    public static Integer timeMonthDays(String date) throws ParseException{
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(YYYYMMDDHHMISS.parse(date));
+        calendar.add(Calendar.MONTH, 1);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
 }
